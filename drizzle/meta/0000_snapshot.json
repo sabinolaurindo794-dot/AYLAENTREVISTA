@@ -1,0 +1,333 @@
+{
+  "id": "518bc5ef-c098-41c4-8b18-28d4172af34d",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.agendamentos": {
+      "name": "agendamentos",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "candidato_nome": {
+          "name": "candidato_nome",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "candidato_email": {
+          "name": "candidato_email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "candidato_telefone": {
+          "name": "candidato_telefone",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "area": {
+          "name": "area",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "empresa": {
+          "name": "empresa",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nivel": {
+          "name": "nivel",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data_hora": {
+          "name": "data_hora",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "notificado": {
+          "name": "notificado",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "notificado_email": {
+          "name": "notificado_email",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "notificado_sms": {
+          "name": "notificado_sms",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "data_notificacao": {
+          "name": "data_notificacao",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "data_criacao": {
+          "name": "data_criacao",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pendente'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.contacts": {
+      "name": "contacts",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "nome": {
+          "name": "nome",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "telefone": {
+          "name": "telefone",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cargo_area": {
+          "name": "cargo_area",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "empresa": {
+          "name": "empresa",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "notas": {
+          "name": "notas",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "data_criacao": {
+          "name": "data_criacao",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.interviews": {
+      "name": "interviews",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "timestamp": {
+          "name": "timestamp",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nome": {
+          "name": "nome",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "area": {
+          "name": "area",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "empresa": {
+          "name": "empresa",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nivel": {
+          "name": "nivel",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "num_perguntas": {
+          "name": "num_perguntas",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pontuacao_global": {
+          "name": "pontuacao_global",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "decisao_final": {
+          "name": "decisao_final",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "categorias": {
+          "name": "categorias",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "justificativa_decisao": {
+          "name": "justificativa_decisao",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pontos_fortes": {
+          "name": "pontos_fortes",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "aspetos_a_melhorar": {
+          "name": "aspetos_a_melhorar",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "plano_treino": {
+          "name": "plano_treino",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "history": {
+          "name": "history",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.users": {
+      "name": "users",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "nome": {
+          "name": "nome",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cargo_role": {
+          "name": "cargo_role",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pin": {
+          "name": "pin",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data_criacao": {
+          "name": "data_criacao",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

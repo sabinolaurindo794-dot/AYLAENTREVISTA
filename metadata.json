@@ -1,0 +1,10 @@
+{
+  "name": "AYLAENTREVISTA",
+  "description": "Banca de recrutamento virtual para simulação de entrevistas de emprego com avaliação em tempo real e IA",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

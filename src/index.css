@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #12161d;
+  --panel: #1b212b;
+  --panel-raised: #212836;
+  --line: #323b4a;
+  --paper: #eee9df;
+  --paper-dim: #a9aebb;
+  --gold: #c8a24d;
+  --gold-dim: #8c7639;
+  --brick: #a94a34;
+  --brick-bright: #d6603f;
+  --green: #6f9b7a;
+  --radius: 2px;
+}
+
+[data-theme="light"] {
+  --bg: #f5f4ef;
+  --panel: #ffffff;
+  --panel-raised: #f9f8f5;
+  --line: #dcd7c9;
+  --paper: #1a1e26;
+  --paper-dim: #5c6270;
+  --gold: #b3882a;
+  --gold-dim: #8c6a1e;
+  --brick: #9e3d28;
+  --brick-bright: #b8432a;
+  --green: #27793d;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1200px 600px at 15% -10%, #1b2230 0%, transparent 60%),
+    var(--bg);
+  background-attachment: fixed;
+  color: var(--paper);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+[data-theme="light"] body {
+  background:
+    radial-gradient(1200px 600px at 15% -10%, #e9e5d9 0%, transparent 60%),
+    var(--bg);
+  background-attachment: fixed;
+}
+
