@@ -37,7 +37,16 @@ export function AuthModal({ isOpen, onClose, currentUser, onUserChanged }: AuthM
     }
   }, [isOpen, currentUser]);
 
-  if (!isOpen) return null;
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
 
   const handleLoginSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,17 +87,6 @@ export function AuthModal({ isOpen, onClose, currentUser, onUserChanged }: AuthM
     onUserChanged(newUser);
     onClose();
   };
-
-  React.useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isOpen]);
 
   if (!isOpen) return null;
 

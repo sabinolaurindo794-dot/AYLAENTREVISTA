@@ -18,6 +18,11 @@ import {
   MessageSquare,
 } from "lucide-react";
 import { soundNovaPergunta } from "../utils/audio";
+import {
+  getNotificationDetails,
+  openCandidateEmail,
+  openCandidateSMSOrWhatsApp,
+} from "../utils/notificationDispatcher";
 
 interface NotificationModalProps {
   agendamento: Agendamento | null;
@@ -49,38 +54,8 @@ export function NotificationModal({
 
   if (!agendamento) return null;
 
-  const formattedDate = agendamento.dataHora
-    ? agendamento.dataHora.replace("T", " às ")
-    : "Data a definir";
-
-  const accessLink = `${window.location.origin}?candidato=${encodeURIComponent(
-    agendamento.candidatoNome
-  )}&area=${encodeURIComponent(agendamento.area)}&empresa=${encodeURIComponent(
-    agendamento.empresa
-  )}`;
-
-  const emailSubject = `[AYLAENTREVISTA] Convite de Entrevista Virtual: ${agendamento.area} (${agendamento.empresa})`;
-  const emailBody = `Exmo(a). Sr(a). ${agendamento.candidatoNome},
-
-Foi agendada a sua entrevista de emprego com a banca virtual AYLAENTREVISTA.
-
-Detalhes do Agendamento:
-• Área / Vaga: ${agendamento.area}
-• Empresa: ${agendamento.empresa}
-• Nível de Exigência: ${agendamento.nivel.toUpperCase()}
-• Data & Hora: ${formattedDate}
-
-Aceda à sala de entrevista através do seguinte link:
-${accessLink}
-
-Recomendações:
-- Certifique-se de que o seu microfone e áudio estão funcionais.
-- Mantenha um ambiente tranquilo para a sessão de entrevista.
-
-Atenciosamente,
-Banca Virtual de Recrutamento - AYLAENTREVISTA`;
-
-  const smsBody = `Olá ${agendamento.candidatoNome}! A sua entrevista de ${agendamento.area} (${agendamento.empresa}) está agendada para ${formattedDate}. Link de acesso: ${accessLink}`;
+  const { formattedDate, accessLink, emailSubject, emailBody, smsBody } =
+    getNotificationDetails(agendamento);
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(accessLink);
@@ -101,31 +76,11 @@ Banca Virtual de Recrutamento - AYLAENTREVISTA`;
   };
 
   const handleOpenMailClient = () => {
-    window.open(
-      `mailto:${encodeURIComponent(agendamento.candidatoEmail)}?subject=${encodeURIComponent(
-        emailSubject
-      )}&body=${encodeURIComponent(emailBody)}`,
-      "_blank"
-    );
+    openCandidateEmail(agendamento);
   };
 
   const handleOpenWhatsAppOrSMS = () => {
-    const rawPhone = agendamento.candidatoTelefone
-      ? agendamento.candidatoTelefone.replace(/[^0-9]/g, "")
-      : "";
-    if (rawPhone) {
-      window.open(
-        `https://wa.me/${rawPhone}?text=${encodeURIComponent(smsBody)}`,
-        "_blank"
-      );
-    } else {
-      window.open(
-        `mailto:${encodeURIComponent(agendamento.candidatoEmail)}?subject=${encodeURIComponent(
-          emailSubject
-        )}&body=${encodeURIComponent(smsBody)}`,
-        "_blank"
-      );
-    }
+    openCandidateSMSOrWhatsApp(agendamento);
   };
 
   return (
@@ -168,13 +123,31 @@ Banca Virtual de Recrutamento - AYLAENTREVISTA`;
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] font-mono pt-1">
-              <div className="flex items-center gap-1.5 bg-emerald-950/40 p-1.5 rounded border border-emerald-500/20">
-                <Mail className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                <span className="truncate">E-mail: {agendamento.candidatoEmail}</span>
+              <div className="flex items-center justify-between bg-emerald-950/40 p-1.5 rounded border border-emerald-500/20">
+                <span className="flex items-center gap-1.5 truncate">
+                  <Mail className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                  <span className="truncate">{agendamento.candidatoEmail}</span>
+                </span>
+                <button
+                  type="button"
+                  onClick={handleOpenMailClient}
+                  className="ml-1 text-[10px] bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 rounded transition cursor-pointer font-sans whitespace-nowrap shrink-0"
+                >
+                  Enviar E-mail
+                </button>
               </div>
-              <div className="flex items-center gap-1.5 bg-emerald-950/40 p-1.5 rounded border border-emerald-500/20">
-                <MessageSquare className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                <span className="truncate">SMS/WhatsApp: {agendamento.candidatoTelefone || "Contacto direct"}</span>
+              <div className="flex items-center justify-between bg-emerald-950/40 p-1.5 rounded border border-emerald-500/20">
+                <span className="flex items-center gap-1.5 truncate">
+                  <MessageSquare className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                  <span className="truncate">{agendamento.candidatoTelefone || "Sem telefone"}</span>
+                </span>
+                <button
+                  type="button"
+                  onClick={handleOpenWhatsAppOrSMS}
+                  className="ml-1 text-[10px] bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 rounded transition cursor-pointer font-sans whitespace-nowrap shrink-0"
+                >
+                  Enviar Mensagem
+                </button>
               </div>
             </div>
           </div>

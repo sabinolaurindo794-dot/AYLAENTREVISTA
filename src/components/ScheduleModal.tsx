@@ -3,6 +3,10 @@ import { Agendamento, NivelExigencia } from "../types";
 import { addAgendamento } from "../utils/agendamentosStorage";
 import { AREAS, EMPRESAS } from "../data/constants";
 import { Calendar, Clock, Mail, Phone, User, Briefcase, Building, Send, X, AlertCircle } from "lucide-react";
+import {
+  openCandidateEmail,
+  openCandidateSMSOrWhatsApp,
+} from "../utils/notificationDispatcher";
 
 interface ScheduleModalProps {
   isOpen: boolean;
@@ -87,6 +91,13 @@ export function ScheduleModal({ isOpen, onClose, prefill, onScheduled }: Schedul
       notificadoEmail: notificarEmail,
       notificadoSMS: notificarSMS,
     });
+
+    if (notificarEmail) {
+      setTimeout(() => openCandidateEmail(newAgendamento), 100);
+    }
+    if (notificarSMS) {
+      setTimeout(() => openCandidateSMSOrWhatsApp(newAgendamento), 400);
+    }
 
     onScheduled(newAgendamento);
     onClose();

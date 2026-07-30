@@ -6,6 +6,10 @@ import {
   deleteAgendamento,
 } from "../utils/agendamentosStorage";
 import {
+  openCandidateEmail,
+  openCandidateSMSOrWhatsApp,
+} from "../utils/notificationDispatcher";
+import {
   Calendar,
   Clock,
   Plus,
@@ -21,6 +25,8 @@ import {
   Trash2,
   CheckCircle2,
   AlertTriangle,
+  Send,
+  MessageSquare,
 } from "lucide-react";
 
 interface AgendamentosScreenProps {
@@ -251,12 +257,30 @@ export function AgendamentosScreen({
               {/* Action Buttons */}
               <div className="flex items-center flex-wrap gap-2 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-[var(--line)]">
                 <button
+                  onClick={() => openCandidateEmail(a)}
+                  className="px-2.5 py-1.5 border border-emerald-500/40 text-emerald-400 hover:bg-emerald-500/20 font-mono text-xs uppercase tracking-wider font-semibold rounded transition flex items-center gap-1.5 cursor-pointer"
+                  title="Enviar convite por E-mail ao candidato"
+                >
+                  <Mail className="w-3.5 h-3.5" />
+                  Enviar E-mail
+                </button>
+
+                <button
+                  onClick={() => openCandidateSMSOrWhatsApp(a)}
+                  className="px-2.5 py-1.5 border border-emerald-500/40 text-emerald-400 hover:bg-emerald-500/20 font-mono text-xs uppercase tracking-wider font-semibold rounded transition flex items-center gap-1.5 cursor-pointer"
+                  title="Enviar convite por SMS/WhatsApp ao candidato"
+                >
+                  <MessageSquare className="w-3.5 h-3.5" />
+                  Enviar SMS / WA
+                </button>
+
+                <button
                   onClick={() => onResendNotification(a)}
                   className="px-3 py-1.5 border border-[var(--gold-dim)] text-[var(--gold)] hover:bg-[var(--gold)] hover:text-[#1a1509] font-mono text-xs uppercase tracking-wider font-semibold rounded transition flex items-center gap-1.5 cursor-pointer"
                   title="Visualizar ou Reenviar Notificação Automática"
                 >
                   <BellRing className="w-3.5 h-3.5" />
-                  Ver Notificação
+                  Notificação
                 </button>
 
                 <button
